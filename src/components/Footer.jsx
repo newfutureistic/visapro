@@ -1,347 +1,178 @@
+import { memo } from "react";
 import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaEnvelope,
-  FaArrowRight,
+  FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter,
+  FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaArrowRight,
 } from "react-icons/fa";
 
+const USEFUL_LINKS = [
+  "Home", "About", "What We Do", "Testimonials",
+  "Programs", "Contact", "Privacy & Policy",
+];
+
+const CALCULATORS = [
+  "CRS Calculator", "Canada 67 Points", "SINP Points",
+  "BC Points", "Manitoba Points", "Nova Scotia Points", "Alberta Points",
+];
+
+const IMPORTANT_LINKS = [
+  "Jobs for Nepali Citizens", "Jobs for Indian Citizens",
+  "Success Stories", "Apply for Canada Visa",
+  "Immigration Specialist Course", "TE Form",
+];
+
+const SOCIAL_ICONS = [FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter];
+
 function Footer() {
-
   return (
+    <footer className="bg-slate-950 text-white relative overflow-hidden">
+      {/* Top accent line */}
+      <div className="h-px bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500" />
 
-    <footer className="relative bg-[#111827] overflow-hidden text-white">
+      {/* Ambient glows */}
+      <div className="absolute top-0 left-0 w-56 h-56 bg-cyan-500/5 rounded-full
+                      blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-56 h-56 bg-blue-500/5 rounded-full
+                      blur-3xl pointer-events-none" />
 
-      {/* TOP GRADIENT LINE */}
-      <div className="h-[4px] bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 w-full" />
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8
+                      py-12 md:py-14">
 
-      {/* GLOW EFFECT */}
-      <div className="absolute top-0 left-0 w-[350px] h-[350px] bg-cyan-500/10 rounded-full blur-3xl" />
+        {/* GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
 
-      <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-blue-500/10 rounded-full blur-3xl" />
-
-      <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-
-        {/* FOOTER GRID */}
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-14">
-
-          {/* CONTACT */}
+          {/* BRAND + CONTACT */}
           <div>
-
-            <h2 className="text-3xl font-bold mb-8">
-
-              Contact Us
-
-            </h2>
-
-            <div className="space-y-7">
-
-              {/* CANADA */}
-              <div className="flex items-start gap-4">
-
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
-
-                  <FaMapMarkerAlt />
-
-                </div>
-
-                <div>
-
-                  <h3 className="font-bold text-lg mb-1">
-
-                    CANADA OFFICE
-
-                  </h3>
-
-                  <p className="text-gray-400 leading-7">
-
-                    3805 F, Marlborough Drive, NE,
-                    Calgary, Alberta, T2A 5M4, CANADA
-
-                  </p>
-
-                </div>
-
+            <a href="/" className="flex items-center gap-2 mb-4">
+              <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center
+                              justify-center shrink-0">
+                <span className="text-white font-black text-xs leading-none">V</span>
               </div>
+              <span className="text-[1.1rem] font-black tracking-tight">
+                Visa<span className="text-cyan-400">Pro</span>
+              </span>
+            </a>
 
-              {/* INDIA */}
-              <div className="flex items-start gap-4">
+            <p className="text-gray-400 text-xs leading-relaxed mb-5 max-w-[200px]">
+              Trusted immigration consultancy helping thousands reach their
+              global dreams since 2012.
+            </p>
 
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
-
-                  <FaMapMarkerAlt />
-
-                </div>
-
-                <div>
-
-                  <h3 className="font-bold text-lg mb-1">
-
-                    NOIDA OFFICE
-
-                  </h3>
-
-                  <p className="text-gray-400 leading-7">
-
-                    B-8, 3rd Floor, Sector-2,
-                    Near Sector 15 Metro Station,
-                    Noida, UP-201301
-
-                  </p>
-
-                </div>
-
-              </div>
-
-              {/* NEPAL */}
-              <div className="flex items-start gap-4">
-
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
-
-                  <FaMapMarkerAlt />
-
-                </div>
-
-                <div>
-
-                  <h3 className="font-bold text-lg mb-1">
-
-                    Nepal OFFICE
-
-                  </h3>
-
-                  <p className="text-gray-400 leading-7">
-
-                    Behind Civil Mall, Sundhara,
-                    Kathmandu <br />
-
-                    Landline no. +977-153631337
-
-                  </p>
-
-                </div>
-
-              </div>
-
-              {/* EMAIL */}
-              <div className="flex items-center gap-4">
-
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400">
-
-                  <FaEnvelope />
-
-                </div>
-
-                <p className="text-gray-300">
-
-                  info@visasimmigrationservices.com
-
-                </p>
-
-              </div>
-
-              {/* PHONE */}
-              <div className="flex items-center gap-4">
-
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400">
-
-                  <FaPhoneAlt />
-
-                </div>
-
-                <p className="text-gray-300">
-
-                  +91 98765 43210
-
-                </p>
-
-              </div>
-
-            </div>
-
+            <ul className="space-y-3">
+              {[
+                { icon: FaMapMarkerAlt, text: "Calgary, Alberta, Canada" },
+                { icon: FaMapMarkerAlt, text: "Noida, UP, India" },
+                { icon: FaEnvelope,     text: "info@visasimmigrationservices.com" },
+                { icon: FaPhoneAlt,     text: "+91 98765 43210" },
+              ].map(({ icon: Icon, text }) => (
+                <li key={text} className="flex items-start gap-2.5">
+                  <div className="w-5 h-5 rounded-md bg-white/5 flex items-center
+                                  justify-center shrink-0 mt-0.5">
+                    <Icon className="text-cyan-400 text-[9px]" />
+                  </div>
+                  <span className="text-gray-400 text-xs leading-relaxed">{text}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* USEFUL LINKS */}
           <div>
-
-            <h2 className="text-3xl font-bold mb-8">
-
+            <h3 className="text-[0.7rem] font-bold text-white uppercase tracking-widest mb-4">
               Useful Links
-
-            </h2>
-
-            <ul className="space-y-5">
-
-              {[
-                "Home",
-                "About",
-                "What We Do",
-                "Testimonials",
-                "Programs",
-                "Contact",
-                "Privacy & Policy",
-              ].map((item, index) => (
-
-                <li
-                  key={index}
-                  className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition duration-300 cursor-pointer group"
-                >
-
-                  <FaArrowRight className="text-sm group-hover:translate-x-1 transition duration-300" />
-
-                  {item}
-
+            </h3>
+            <ul className="space-y-2.5">
+              {USEFUL_LINKS.map((item) => (
+                <li key={item}>
+                  <a href="#"
+                    className="group flex items-center gap-1.5 text-gray-400
+                               hover:text-cyan-400 transition-colors duration-150 text-xs">
+                    <FaArrowRight className="text-[8px] opacity-0 group-hover:opacity-100
+                                             transition-opacity duration-150" />
+                    {item}
+                  </a>
                 </li>
-
               ))}
-
             </ul>
-
           </div>
 
-          {/* POINTS CALCULATOR */}
+          {/* CALCULATORS */}
           <div>
-
-            <h2 className="text-3xl font-bold mb-8">
-
+            <h3 className="text-[0.7rem] font-bold text-white uppercase tracking-widest mb-4">
               Points Calculator
-
-            </h2>
-
-            <ul className="space-y-5">
-
-              {[
-                "CRS Calculator",
-                "Canada 67 Points Calculator",
-                "SINP Points Calculator",
-                "BC Points Calculator",
-                "Manitoba Points Calculator",
-                "Nova Scotia Points Calculator",
-                "Alberta Points Calculator",
-                "Ontario Points Calculator",
-                "Quebec Points Calculator",
-              ].map((item, index) => (
-
-                <li
-                  key={index}
-                  className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition duration-300 cursor-pointer group"
-                >
-
-                  <FaArrowRight className="text-sm group-hover:translate-x-1 transition duration-300" />
-
-                  {item}
-
+            </h3>
+            <ul className="space-y-2.5">
+              {CALCULATORS.map((item) => (
+                <li key={item}>
+                  <a href="#"
+                    className="group flex items-center gap-1.5 text-gray-400
+                               hover:text-cyan-400 transition-colors duration-150 text-xs">
+                    <FaArrowRight className="text-[8px] opacity-0 group-hover:opacity-100
+                                             transition-opacity duration-150" />
+                    {item}
+                  </a>
                 </li>
-
               ))}
-
             </ul>
-
           </div>
 
-          {/* IMPORTANT LINKS */}
+          {/* IMPORTANT LINKS + SOCIAL */}
           <div>
-
-            <h2 className="text-3xl font-bold mb-8">
-
+            <h3 className="text-[0.7rem] font-bold text-white uppercase tracking-widest mb-4">
               Important Links
-
-            </h2>
-
-            <ul className="space-y-5">
-
-              {[
-                "Jobs for Nepali Citizen",
-                "Jobs for Indian Citizen",
-                "Success Stories",
-                "Apply Now For Canada Visa",
-                "Immigration Specialist Course",
-                "TE Form",
-              ].map((item, index) => (
-
-                <li
-                  key={index}
-                  className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition duration-300 cursor-pointer group"
-                >
-
-                  <FaArrowRight className="text-sm group-hover:translate-x-1 transition duration-300" />
-
-                  {item}
-
+            </h3>
+            <ul className="space-y-2.5 mb-6">
+              {IMPORTANT_LINKS.map((item) => (
+                <li key={item}>
+                  <a href="#"
+                    className="group flex items-center gap-1.5 text-gray-400
+                               hover:text-cyan-400 transition-colors duration-150 text-xs">
+                    <FaArrowRight className="text-[8px] opacity-0 group-hover:opacity-100
+                                             transition-opacity duration-150" />
+                    {item}
+                  </a>
                 </li>
-
               ))}
-
             </ul>
 
-            {/* SOCIAL */}
-            <div className="flex gap-4 mt-10">
-
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 transition duration-300 cursor-pointer">
-
-                <FaFacebookF />
-
-              </div>
-
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 transition duration-300 cursor-pointer">
-
-                <FaInstagram />
-
-              </div>
-
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 transition duration-300 cursor-pointer">
-
-                <FaLinkedinIn />
-
-              </div>
-
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-500 hover:border-cyan-500 transition duration-300 cursor-pointer">
-
-                <FaTwitter />
-
-              </div>
-
+            <div className="flex gap-2">
+              {SOCIAL_ICONS.map((Icon, i) => (
+                <button
+                  key={i}
+                  aria-label="Social link"
+                  className="w-8 h-8 rounded-lg bg-white/5 border border-white/8
+                             flex items-center justify-center text-gray-400
+                             hover:bg-cyan-500 hover:border-cyan-500 hover:text-white
+                             transition-colors duration-150"
+                >
+                  <Icon className="text-[10px]" />
+                </button>
+              ))}
             </div>
-
           </div>
 
         </div>
 
-        {/* BOTTOM */}
-        <div className="border-t border-white/10 mt-20 pt-8 flex flex-col md:flex-row justify-between items-center gap-5">
-
-          <p className="text-gray-500 text-center">
-
-            All Rights Reserved. Copyright © 2026
-            Visas Immigration Services
-
+        {/* BOTTOM BAR */}
+        <div className="border-t border-white/8 mt-10 pt-6 flex flex-col sm:flex-row
+                        items-center justify-between gap-3">
+          <p className="text-gray-500 text-xs text-center sm:text-left">
+            © 2026 Visas Immigration Services. All rights reserved.
           </p>
-
-          <div className="flex gap-8">
-
-            <p className="text-gray-500 hover:text-cyan-400 transition cursor-pointer">
-
+          <div className="flex gap-5">
+            <a href="#" className="text-gray-500 hover:text-cyan-400 transition-colors
+                                   duration-150 text-xs">
               Privacy Policy
-
-            </p>
-
-            <p className="text-gray-500 hover:text-cyan-400 transition cursor-pointer">
-
-              Terms & Conditions
-
-            </p>
-
+            </a>
+            <a href="#" className="text-gray-500 hover:text-cyan-400 transition-colors
+                                   duration-150 text-xs">
+              Terms &amp; Conditions
+            </a>
           </div>
-
         </div>
 
       </div>
-
     </footer>
   );
 }
 
-export default Footer;
+export default memo(Footer);

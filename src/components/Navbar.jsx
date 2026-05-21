@@ -1,247 +1,204 @@
-import { motion } from "framer-motion";
-
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-  FaTwitter,
-  FaEnvelope,
-  FaBars,
+  FaFacebookF, FaInstagram, FaLinkedinIn,
+  FaTwitter, FaEnvelope, FaBars, FaTimes, FaChevronRight,
 } from "react-icons/fa";
-
-/* LOGOS */
 import visaLogo from "../assets/visa.jpg";
 import maraLogo from "../assets/mara.jpg";
 import icLogo from "../assets/ic.jpg";
 
-function Navbar() {
+const NAV_LINKS = ["Home", "About", "Services", "Testimonials", "Countries", "Contact"];
+
+const CERT_LOGOS = [
+  { src: visaLogo, label: "VISAS" },
+  { src: maraLogo, label: "MARA" },
+  { src: icLogo, label: "ICCRC" },
+];
+
+const SOCIALS = [FaLinkedinIn, FaTwitter, FaFacebookF, FaInstagram];
+
+/* Framer variants — only for the slide-down mobile menu */
+const menuVariants = {
+  hidden: { opacity: 0, height: 0 },
+  visible: { opacity: 1, height: "auto", transition: { duration: 0.2, ease: "easeOut" } },
+  exit:    { opacity: 0, height: 0,      transition: { duration: 0.18, ease: "easeIn" } },
+};
+
+const menuItemVariants = {
+  hidden:  { opacity: 0, x: -10 },
+  visible: (i) => ({ opacity: 1, x: 0, transition: { delay: i * 0.04, duration: 0.18 } }),
+};
+
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 8);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  useEffect(() => {
+    /* Use CSS class so globals.css handles overflow — avoids inline style flicker */
+    document.body.classList.toggle("nav-open", menuOpen);
+    return () => document.body.classList.remove("nav-open");
+  }, [menuOpen]);
+
+  const toggle = useCallback(() => setMenuOpen((v) => !v), []);
+  const close  = useCallback(() => setMenuOpen(false), []);
+
   return (
     <>
-      {/* TOP BAR */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
-
-        <div className="max-w-7xl mx-auto px-6 h-[42px] flex items-center justify-between">
-
-          {/* EMAIL */}
-          <div className="flex items-center gap-2 text-sm font-medium">
-
-            <FaEnvelope className="text-[13px]" />
-
-            <p className="hover:text-cyan-200 transition cursor-pointer">
-              info@visasimmigrationservices.com
-            </p>
-
+      {/* ── TOP BAR ── */}
+      <div className="hidden sm:block bg-blue-600 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+          <a
+            href="mailto:info@visasimmigrationservices.com"
+            className="flex items-center gap-1.5 text-xs font-medium opacity-90 hover:opacity-100 transition-opacity"
+          >
+            <FaEnvelope className="text-[10px]" />
+            info@visasimmigrationservices.com
+          </a>
+          <div className="flex items-center gap-3">
+            {SOCIALS.map((Icon, i) => (
+              <button key={i} aria-label="Social link"
+                className="opacity-70 hover:opacity-100 transition-opacity">
+                <Icon className="text-xs" />
+              </button>
+            ))}
           </div>
-
-          {/* SOCIAL */}
-          <div className="hidden md:flex items-center gap-5 text-sm">
-
-            <FaLinkedinIn className="cursor-pointer hover:text-cyan-200 transition" />
-
-            <FaTwitter className="cursor-pointer hover:text-cyan-200 transition" />
-
-            <FaFacebookF className="cursor-pointer hover:text-cyan-200 transition" />
-
-            <FaInstagram className="cursor-pointer hover:text-cyan-200 transition" />
-
-            <FaYoutube className="cursor-pointer hover:text-cyan-200 transition" />
-
-          </div>
-
         </div>
-
       </div>
 
-      {/* MAIN NAVBAR */}
-      <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+      {/* ── MAIN NAV ── */}
+      <header
+        className={`sticky top-0 z-50 bg-white border-b transition-shadow duration-300 ${
+          scrolled ? "shadow-md border-transparent" : "border-gray-100 shadow-none"
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-16 flex items-center justify-between gap-4">
 
-<div className="max-w-[1500px] mx-auto px-10">
-<div className="h-[110px] flex items-center justify-between">
-            {/* LEFT */}
-<div className="flex items-center gap-16">
-              {/* TEXT LOGO */}
-              <motion.div
+            {/* LOGO */}
+            <a href="/" className="flex items-center gap-2 shrink-0 group">
+              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-sm">
+                <span className="text-white font-black text-sm leading-none">V</span>
+              </div>
+              <span className="text-[1.25rem] font-black tracking-tight text-slate-900 leading-none">
+                Visa<span className="text-blue-600">Pro</span>
+              </span>
+            </a>
 
-                whileHover={{
-                  scale: 1.02,
-                }}
-
-                className="cursor-pointer"
-              >
-
-                <h1 className="text-[60px] leading-none font-black tracking-[-2px] text-[#0b132b]">
-
-                  Visa
-
-                  <span className="text-cyan-500">
-                    Pro
-                  </span>
-
-                </h1>
-
-              </motion.div>
-
-              {/* CERTIFIED LOGOS */}
-<div className="hidden xl:flex items-center gap-8 ml-4">
-                {/* VISA */}
-                <div className="flex flex-col items-center">
-
-                  <div className="w-[70px] h-[70px] rounded-full border border-gray-200 shadow-md overflow-hidden bg-white">
-
+            {/* CERT LOGOS */}
+            <div className="hidden xl:flex items-center gap-4">
+              {CERT_LOGOS.map((item) => (
+                <div key={item.label} className="flex items-center gap-1.5">
+                  <div className="w-7 h-7 rounded-full border border-gray-200 overflow-hidden bg-white shadow-sm">
                     <img
-                      src={visaLogo}
-                      alt="Visa"
+                      src={item.src}
+                      alt={item.label}
+                      width={28} height={28}
+                      decoding="async"
                       className="w-full h-full object-cover"
                     />
-
                   </div>
-
-                  <span className="text-[11px] text-gray-500 mt-2">
-                    VISAS
-                  </span>
-
+                  <span className="text-[10px] text-gray-400 font-semibold">{item.label}</span>
                 </div>
-
-                {/* MARA */}
-                <div className="flex flex-col items-center">
-
-                  <div className="w-[70px] h-[70px] rounded-full border border-gray-200 shadow-md overflow-hidden bg-white">
-
-                    <img
-                      src={maraLogo}
-                      alt="Mara"
-                      className="w-full h-full object-contain p-1"
-                    />
-
-                  </div>
-
-                  <span className="text-[11px] text-gray-500 mt-2">
-                    Registered
-                  </span>
-
-                </div>
-
-                {/* ICCRC */}
-                <div className="flex flex-col items-center">
-
-                  <div className="w-[70px] h-[70px] rounded-full border border-gray-200 shadow-md overflow-hidden bg-white">
-
-                    <img
-                      src={icLogo}
-                      alt="ICCRC"
-                      className="w-full h-full object-contain p-1"
-                    />
-
-                  </div>
-
-                  <span className="text-[11px] text-gray-500 mt-2">
-                    Certified
-                  </span>
-
-                </div>
-
-              </div>
-
+              ))}
             </div>
 
-            {/* CENTER NAV */}
-<nav className="hidden lg:flex items-center gap-16 ml-16">
-              {[
-                "Home",
-                "About",
-                "Services",
-                "Testimonials",
-                "Demand",
-                "Contact",
-              ].map((item, index) => (
-
-                <motion.a
-
-                  key={index}
-
-                  href="/"
-
-                  whileHover={{
-                    y: -2,
-                  }}
-
-                  className={`relative text-[17px] tracking-wide font-semibold transition duration-300 whitespace-nowrap ${
-                    item === "About"
-                      ? "text-cyan-500"
-                      : "text-slate-800 hover:text-cyan-500"
-                  }`}
+            {/* DESKTOP NAV */}
+            <nav className="hidden lg:flex items-center gap-7">
+              {NAV_LINKS.map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="relative text-sm font-medium text-gray-600 hover:text-blue-600
+                             transition-colors duration-150 group"
                 >
-
                   {item}
-
-                  {item === "About" && (
-
-                    <span className="absolute left-0 -bottom-3 w-full h-[3px] rounded-full bg-cyan-500"></span>
-
-                  )}
-
-                </motion.a>
-
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-blue-600 rounded-full
+                                   transition-[width] duration-200 ease-out group-hover:w-full" />
+                </a>
               ))}
-
             </nav>
 
-            {/* RIGHT BUTTON */}
-<div className="flex items-center gap-8 ml-10">
-              <motion.button
-
-                whileHover={{
-                  scale: 1.03,
-                }}
-
-                whileTap={{
-                  scale: 0.96,
-                }}
-
-                className="hidden md:flex items-center gap-4 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white px-7 py-4 rounded-2xl shadow-xl transition duration-300"
+            {/* CTA + HAMBURGER */}
+            <div className="flex items-center gap-2 ml-2">
+              <a
+                href="#contact"
+                className="hidden md:inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700
+                           active:bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-semibold
+                           transition-colors duration-150 shadow-sm"
               >
+                Get Started
+                <FaChevronRight className="text-[9px]" />
+              </a>
 
-                {/* ICON */}
-                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-2xl">
-
-                  ↗
-
-                </div>
-
-                {/* TEXT */}
-                <div className="leading-tight text-left">
-
-                  <h4 className="font-bold text-[17px]">
-                    Pay Now
-                  </h4>
-
-                  <p className="text-[10px] uppercase tracking-[1px] text-white/70">
-
-                    Secured By Razorpay
-
-                  </p>
-
-                </div>
-
-              </motion.button>
-
-              {/* MOBILE MENU */}
-              <button className="lg:hidden text-3xl text-slate-800">
-
-                <FaBars />
-
+              <button
+                onClick={toggle}
+                aria-label="Toggle navigation menu"
+                aria-expanded={menuOpen}
+                className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg
+                           text-gray-700 hover:bg-gray-100 active:bg-gray-200
+                           transition-colors duration-150"
+              >
+                {menuOpen ? <FaTimes className="text-base" /> : <FaBars className="text-base" />}
               </button>
-
             </div>
-
           </div>
-
         </div>
 
+        {/* ── MOBILE MENU ── */}
+        <AnimatePresence initial={false}>
+          {menuOpen && (
+            <motion.div
+              key="mobile-menu"
+              variants={menuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="lg:hidden overflow-hidden border-t border-gray-100 bg-white"
+            >
+              <nav className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-0.5">
+                {NAV_LINKS.map((item, i) => (
+                  <motion.a
+                    key={item}
+                    custom={i}
+                    variants={menuItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    href={`#${item.toLowerCase()}`}
+                    onClick={close}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-lg
+                               text-sm font-medium text-gray-700 hover:bg-blue-50
+                               hover:text-blue-600 transition-colors duration-150"
+                  >
+                    {item}
+                    <FaChevronRight className="text-[9px] text-gray-300" />
+                  </motion.a>
+                ))}
+                <div className="pt-3 mt-1 border-t border-gray-100">
+                  <a
+                    href="#contact"
+                    onClick={close}
+                    className="flex items-center justify-center gap-1.5 w-full bg-blue-600
+                               hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg text-sm
+                               font-semibold transition-colors duration-150"
+                  >
+                    Get Started <FaChevronRight className="text-[9px]" />
+                  </a>
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
     </>
   );
 }
-
-export default Navbar;

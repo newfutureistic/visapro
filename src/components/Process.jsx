@@ -1,310 +1,137 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
-
 import {
-  FaUserTie,
-  FaSearch,
-  FaFileAlt,
-  FaPaperPlane,
-  FaPlaneDeparture,
-  FaCheckCircle,
+  FaUserTie, FaSearch, FaFileAlt, FaPaperPlane, FaPlaneDeparture,
 } from "react-icons/fa";
 
-const processData = [
-  {
-    id: "01",
-    icon: <FaUserTie />,
-    title: "Free Consultation",
-    desc: "Our experts analyze your profile and suggest the best immigration pathway for success.",
-    color: "from-blue-600 to-cyan-500",
-  },
-
-  {
-    id: "02",
-    icon: <FaSearch />,
-    title: "Profile Evaluation",
-    desc: "Detailed eligibility assessment with documentation and visa success planning.",
-    color: "from-cyan-500 to-blue-500",
-  },
-
-  {
-    id: "03",
-    icon: <FaFileAlt />,
-    title: "Documentation",
-    desc: "Complete support for preparing accurate documents and legal paperwork.",
-    color: "from-indigo-500 to-blue-600",
-  },
-
-  {
-    id: "04",
-    icon: <FaPaperPlane />,
-    title: "Visa Filing",
-    desc: "Professional application filing with fast and transparent processing.",
-    color: "from-sky-500 to-cyan-500",
-  },
-
-  {
-    id: "05",
-    icon: <FaPlaneDeparture />,
-    title: "Approval & Fly",
-    desc: "Receive your visa approval and start your international journey confidently.",
-    color: "from-blue-700 to-indigo-600",
-  },
+const STEPS = [
+  { id: "01", icon: FaUserTie,       title: "Free Consultation",  desc: "Experts analyse your profile and suggest the best immigration pathway.", color: "bg-blue-50 text-blue-600",   bar: "bg-blue-600" },
+  { id: "02", icon: FaSearch,        title: "Profile Evaluation", desc: "Detailed eligibility assessment with documentation planning.",            color: "bg-cyan-50 text-cyan-600",   bar: "bg-cyan-500" },
+  { id: "03", icon: FaFileAlt,       title: "Documentation",      desc: "Complete support for preparing accurate documents and legal paperwork.",   color: "bg-indigo-50 text-indigo-600", bar: "bg-indigo-500" },
+  { id: "04", icon: FaPaperPlane,    title: "Visa Filing",        desc: "Professional application filing with fast, transparent processing.",       color: "bg-sky-50 text-sky-600",     bar: "bg-sky-500" },
+  { id: "05", icon: FaPlaneDeparture,title: "Approval & Fly",     desc: "Receive your visa approval and start your journey confidently.",          color: "bg-blue-50 text-blue-700",   bar: "bg-blue-700" },
 ];
 
+const BOTTOM_STATS = [
+  { number: "10K+", text: "Visa Applications" },
+  { number: "98%",  text: "Success Rate" },
+  { number: "15+",  text: "Years Experience" },
+  { number: "50+",  text: "Countries Covered" },
+];
+
+const headVariants = {
+  hidden:  { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] } },
+};
+
+const gridVariants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const cardVariants = {
+  hidden:  { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.42, ease: [0.25, 0.4, 0.25, 1] } },
+};
+
 function Process() {
-
   return (
-
-    <section className="relative py-32 bg-[#f7fbff] overflow-hidden">
-
-      {/* BACKGROUND GLOW */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-500/10 blur-3xl rounded-full"></div>
-
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 blur-3xl rounded-full"></div>
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section className="py-14 md:py-20 bg-slate-50 overflow-hidden section-lazy">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* HEADING */}
         <motion.div
-
-          initial={{
-            opacity: 0,
-            y: 50,
-          }}
-
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-
-          transition={{
-            duration: 0.7,
-          }}
-
-          viewport={{
-            once: true,
-          }}
-
-          className="text-center mb-24"
+          variants={headVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="text-center mb-10 md:mb-14"
         >
-
-          {/* TOP BADGE */}
-          <div className="inline-flex items-center gap-3 bg-blue-100 text-blue-700 px-7 py-3 rounded-full shadow-md mb-7">
-
-            <FaCheckCircle />
-
-            <span className="uppercase tracking-[3px] text-sm font-bold">
-
-              Process Timeline
-
-            </span>
-
-          </div>
-
-          {/* TITLE */}
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-tight">
-
-            Your Journey To <br />
-
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-
-              Global Success
-
-            </span>
-
+          <span className="inline-flex items-center bg-blue-50 text-blue-600 px-3 py-1
+                           rounded-full text-[0.7rem] font-semibold tracking-widest
+                           uppercase mb-3 border border-blue-100">
+            Process Timeline
+          </span>
+          <h2 className="text-[clamp(1.7rem,3.2vw,2.4rem)] font-bold text-slate-900 leading-tight">
+            Your Journey To{" "}
+            <span className="gradient-text">Global Success</span>
           </h2>
-
-          {/* DESCRIPTION */}
-          <p className="text-gray-600 max-w-3xl mx-auto mt-8 text-lg leading-9">
-
-            Our streamlined immigration process ensures a smooth,
-            transparent and stress-free experience from profile
-            evaluation to visa approval.
-
+          <p className="text-gray-500 mt-3 max-w-xl mx-auto text-sm md:text-[0.9375rem] leading-relaxed">
+            Our streamlined process ensures a smooth, transparent and
+            stress-free experience from evaluation to visa approval.
           </p>
-
         </motion.div>
 
-        {/* PROCESS GRID */}
-        <div className="grid lg:grid-cols-5 md:grid-cols-2 gap-8 relative">
+        {/* STEPS — one IntersectionObserver via stagger container */}
+        <motion.div
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"
+        >
+          {STEPS.map((step) => {
+            const Icon = step.icon;
+            return (
+              <motion.article
+                key={step.id}
+                variants={cardVariants}
+                className="card-lift group relative bg-white rounded-2xl
+                           border border-gray-100 hover:border-gray-200 shadow-sm
+                           overflow-hidden"
+              >
+                {/* Top accent bar */}
+                <div className={`h-0.5 ${step.bar}`} />
 
-          {processData.map((item, index) => (
+                <div className="p-5">
+                  {/* Watermark step number */}
+                  <span className="absolute top-3 right-3.5 text-5xl font-black
+                                   text-gray-100 select-none leading-none pointer-events-none">
+                    {step.id}
+                  </span>
 
-            <motion.div
-
-              key={index}
-
-              initial={{
-                opacity: 0,
-                y: 80,
-              }}
-
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-
-              viewport={{
-                once: true,
-              }}
-
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-              }}
-
-              whileHover={{
-                y: -15,
-              }}
-
-              className="group relative"
-            >
-
-              {/* CONNECTOR LINE */}
-              {index !== processData.length - 1 && (
-                <div className="hidden lg:block absolute top-20 left-[80%] w-full h-[3px] bg-gradient-to-r from-blue-500 to-cyan-400 z-0"></div>
-              )}
-
-              {/* CARD */}
-              <div className="relative z-10 bg-white rounded-[35px] border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full">
-
-                {/* TOP BAR */}
-                <div className={`h-2 bg-gradient-to-r ${item.color}`}></div>
-
-                {/* HOVER BG */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-b from-blue-50 to-cyan-50 transition duration-500"></div>
-
-                {/* CONTENT */}
-                <div className="relative z-10 p-8 text-center">
-
-                  {/* STEP NUMBER */}
-                  <div className="absolute top-5 right-5 text-6xl font-black text-gray-100">
-
-                    {item.id}
-
+                  <div className={`w-10 h-10 rounded-xl ${step.color} flex items-center
+                                   justify-center text-sm mb-4`}>
+                    <Icon />
                   </div>
 
-                  {/* ICON */}
-                  <motion.div
-
-                    whileHover={{
-                      rotate: 8,
-                      scale: 1.08,
-                    }}
-
-                    transition={{
-                      type: "spring",
-                      stiffness: 200,
-                    }}
-
-                    className={`w-24 h-24 mx-auto rounded-[30px] bg-gradient-to-br ${item.color} flex items-center justify-center text-white text-5xl shadow-2xl mb-8`}
-                  >
-
-                    {item.icon}
-
-                  </motion.div>
-
-                  {/* TITLE */}
-                  <h3 className="text-3xl font-black text-slate-900 mb-5 leading-tight">
-
-                    {item.title}
-
+                  <h3 className="text-sm font-bold text-slate-900 mb-1.5 leading-snug">
+                    {step.title}
                   </h3>
-
-                  {/* DESC */}
-                  <p className="text-gray-600 leading-8 text-lg">
-
-                    {item.desc}
-
-                  </p>
-
+                  <p className="text-xs text-gray-500 leading-relaxed">{step.desc}</p>
                 </div>
-
-              </div>
-
-            </motion.div>
-
-          ))}
-
-        </div>
+              </motion.article>
+            );
+          })}
+        </motion.div>
 
         {/* BOTTOM STATS */}
-        <div className="grid md:grid-cols-4 gap-8 mt-28">
-
-          {[
-            {
-              number: "10K+",
-              text: "Visa Applications",
-            },
-
-            {
-              number: "98%",
-              text: "Success Rate",
-            },
-
-            {
-              number: "15+",
-              text: "Years Experience",
-            },
-
-            {
-              number: "50+",
-              text: "Countries Covered",
-            },
-          ].map((item, index) => (
-
+        <motion.div
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
+        >
+          {BOTTOM_STATS.map((item) => (
             <motion.div
-
-              key={index}
-
-              initial={{
-                opacity: 0,
-                y: 50,
-              }}
-
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-
-              viewport={{
-                once: true,
-              }}
-
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-              }}
-
-              whileHover={{
-                y: -10,
-              }}
-
-              className="bg-white rounded-[30px] border border-gray-100 shadow-xl p-10 text-center hover:shadow-2xl transition duration-500"
+              key={item.text}
+              variants={cardVariants}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm
+                         p-5 text-center"
             >
-
-              <h3 className="text-5xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-4">
-
+              <span className="block text-2xl md:text-[1.75rem] font-black
+                               gradient-text mb-1 tabular-nums">
                 {item.number}
-
-              </h3>
-
-              <p className="text-gray-600 text-lg font-medium">
-
-                {item.text}
-
-              </p>
-
+              </span>
+              <span className="text-xs text-gray-500 font-medium">{item.text}</span>
             </motion.div>
-
           ))}
-
-        </div>
+        </motion.div>
 
       </div>
-
     </section>
   );
 }
 
-export default Process;
+export default memo(Process);

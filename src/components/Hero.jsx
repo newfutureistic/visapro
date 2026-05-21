@@ -1,350 +1,163 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
-
-import {
-  FaCheckCircle,
-  FaArrowRight,
-  FaPlay,
-} from "react-icons/fa";
-
+import { FaCheckCircle, FaArrowRight, FaShieldAlt } from "react-icons/fa";
 import heroBg from "../assets/hero-bg.jpg";
 
+const FEATURES = [
+  "10K+ Successful Applications",
+  "95% Visa Approval Rate",
+  "ICCRC Certified Experts",
+  "Fast Processing Support",
+];
+
+const STATS = [
+  { number: "15K+", label: "Visas Approved" },
+  { number: "25+",  label: "Countries" },
+  { number: "10+",  label: "Years Exp." },
+];
+
+/* Single set of variants defined outside — never re-created on render */
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+
+const itemVariants = {
+  hidden:  { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] } },
+};
+
 function Hero() {
-
   return (
-
     <section
-      className="pt-[110px]  relative min-h-screen overflow-hidden bg-cover bg-center flex items-center"
-      style={{
-        backgroundImage: `url(${heroBg})`,
-      }}
+      id="home"
+      className="relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${heroBg})` }}
     >
+      {/* Layered overlays — no backdrop-blur, pure opacity */}
+      <div className="absolute inset-0 bg-white/72 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/88 to-white/10 pointer-events-none" />
 
-      {/* DARK + LIGHT OVERLAY */}
-      <div className="absolute inset-0 bg-white/60 z-0"></div>
+      {/* Ambient glow orbs — CSS only, composited off main thread */}
+      <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-blue-400/18
+                      blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-16 right-0 w-72 h-72 rounded-full bg-cyan-400/14
+                      blur-3xl pointer-events-none" />
 
-      {/* LEFT GRADIENT */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-0"></div>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8
+                   pt-12 pb-12 md:pt-18 md:pb-16"
+      >
+        <div className="max-w-[600px]">
 
-      {/* BLUE GLOW */}
-      <div className="absolute top-[-100px] left-[-100px] w-[500px] h-[500px] bg-blue-500/20 blur-3xl rounded-full z-0"></div>
-
-      {/* CYAN GLOW */}
-      <div className="absolute bottom-[-100px] right-[-100px] w-[500px] h-[500px] bg-cyan-400/20 blur-3xl rounded-full z-0"></div>
-
-<div className="relative z-10 max-w-7xl mx-auto px-6 pt-56 pb-28 w-full">
-          <div className="max-w-3xl">
-
-          {/* TOP BADGE */}
-          <motion.div
-
-            initial={{
-              opacity: 0,
-              y: -20,
-            }}
-
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-
-            transition={{
-              duration: 0.7,
-            }}
-
-            className="inline-flex items-center gap-3 bg-blue-600 text-white px-7 py-3 rounded-full shadow-2xl mb-8"
+          {/* BADGE */}
+          <motion.div variants={itemVariants}
+            className="inline-flex items-center gap-2 bg-blue-600 text-white
+                       px-3.5 py-1.5 rounded-full text-xs font-semibold
+                       tracking-wide uppercase shadow-md mb-5"
           >
-
-            <FaCheckCircle />
-
-            <span className="uppercase tracking-[3px] text-sm font-bold">
-
-              Trusted Immigration Experts
-
-            </span>
-
+            <FaShieldAlt className="text-[9px]" />
+            Trusted Immigration Experts
           </motion.div>
 
           {/* HEADING */}
           <motion.h1
-
-            initial={{
-              opacity: 0,
-              y: 60,
-            }}
-
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-
-            transition={{
-              delay: 0.2,
-              duration: 0.8,
-            }}
-
-            className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.05] text-slate-900"
+            variants={itemVariants}
+            className="text-[clamp(1.9rem,4.8vw,3.1rem)] font-black leading-[1.1]
+                       text-slate-900 mb-4"
           >
-
-            Your Trusted <br />
-
+            Your Trusted{" "}
             <span className="relative inline-block">
-
-              <span className="relative z-10 text-blue-600">
-
-                Immigration
-
-              </span>
-
-              {/* BLUE HIGHLIGHT */}
-              <span className="absolute left-0 bottom-3 w-full h-5 bg-blue-200/70 -z-0 rounded-lg"></span>
-
-            </span>
-
-            <br />
-
+              <span className="relative z-10 text-blue-600">Immigration</span>
+              <span className="absolute left-0 bottom-1 w-full h-2.5
+                               bg-blue-200/55 rounded pointer-events-none" />
+            </span>{" "}
             Partner Worldwide
-
           </motion.h1>
 
           {/* DESCRIPTION */}
           <motion.p
-
-            initial={{
-              opacity: 0,
-              y: 30,
-            }}
-
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-
-            transition={{
-              delay: 0.4,
-              duration: 0.8,
-            }}
-
-            className="text-gray-700 mt-8 text-xl leading-10 max-w-2xl font-medium"
+            variants={itemVariants}
+            className="text-[0.9375rem] text-gray-600 leading-relaxed max-w-[520px] mb-6"
           >
-
-            We help students, professionals and families
-            secure visas for Canada, Australia, Germany,
-            UK and many more countries with trusted
-            consultation and fast processing.
-
+            We help students, professionals and families secure visas for
+            Canada, Australia, Germany, UK and more — with trusted consultation
+            and fast, transparent processing.
           </motion.p>
 
-          {/* FEATURES */}
+          {/* FEATURE PILLS */}
           <motion.div
-
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-
-            transition={{
-              delay: 0.6,
-              duration: 0.8,
-            }}
-
-            className="grid sm:grid-cols-2 gap-5 mt-10"
+            variants={itemVariants}
+            className="flex flex-wrap gap-2 mb-7"
           >
-
-            <div className="flex items-center gap-4 bg-white/80 backdrop-blur-lg px-5 py-4 rounded-2xl shadow-lg border border-white">
-
-              <FaCheckCircle className="text-blue-600 text-xl" />
-
-              <span className="text-slate-800 font-semibold">
-
-                10K+ Successful Applications
-
+            {FEATURES.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center gap-1.5 bg-white/95 border
+                           border-gray-200/80 px-3 py-1.5 rounded-lg shadow-sm
+                           text-xs sm:text-[0.8125rem] font-medium text-slate-700"
+              >
+                <FaCheckCircle className="text-blue-600 text-[10px] shrink-0" />
+                {item}
               </span>
-
-            </div>
-
-            <div className="flex items-center gap-4 bg-white/80 backdrop-blur-lg px-5 py-4 rounded-2xl shadow-lg border border-white">
-
-              <FaCheckCircle className="text-blue-600 text-xl" />
-
-              <span className="text-slate-800 font-semibold">
-
-                95% Visa Approval Rate
-
-              </span>
-
-            </div>
-
-            <div className="flex items-center gap-4 bg-white/80 backdrop-blur-lg px-5 py-4 rounded-2xl shadow-lg border border-white">
-
-              <FaCheckCircle className="text-blue-600 text-xl" />
-
-              <span className="text-slate-800 font-semibold">
-
-                ICCRC Certified Experts
-
-              </span>
-
-            </div>
-
-            <div className="flex items-center gap-4 bg-white/80 backdrop-blur-lg px-5 py-4 rounded-2xl shadow-lg border border-white">
-
-              <FaCheckCircle className="text-blue-600 text-xl" />
-
-              <span className="text-slate-800 font-semibold">
-
-                Fast Processing Support
-
-              </span>
-
-            </div>
-
+            ))}
           </motion.div>
 
-          {/* BUTTONS */}
-          <motion.div
-
-            initial={{
-              opacity: 0,
-              y: 30,
-            }}
-
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-
-            transition={{
-              delay: 0.8,
-              duration: 0.8,
-            }}
-
-            className="flex flex-wrap gap-5 mt-12"
-          >
-
-            {/* PRIMARY BUTTON */}
-            <motion.button
-
-              whileHover={{
-                scale: 1.05,
-              }}
-
-              whileTap={{
-                scale: 0.95,
-              }}
-
-              className="group bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl flex items-center gap-3 transition duration-300"
+          {/* CTA BUTTONS */}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-3 mb-10">
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center gap-2
+                         bg-blue-600 hover:bg-blue-700 active:bg-blue-800
+                         text-white px-6 py-2.5 rounded-xl text-sm font-semibold
+                         transition-colors duration-150 shadow-sm group"
             >
-
               Apply Now
-
-              <FaArrowRight className="group-hover:translate-x-1 transition" />
-
-            </motion.button>
-
-            {/* SECONDARY BUTTON */}
-            <motion.button
-
-              whileHover={{
-                scale: 1.05,
-              }}
-
-              whileTap={{
-                scale: 0.95,
-              }}
-
-              className="group bg-white/80 backdrop-blur-lg border border-gray-200 hover:border-blue-500 text-slate-900 px-10 py-5 rounded-2xl font-bold text-lg shadow-xl flex items-center gap-3 transition duration-300"
+              <FaArrowRight className="text-[10px] transition-transform duration-150
+                                       group-hover:translate-x-0.5" />
+            </a>
+            <a
+              href="#services"
+              className="inline-flex items-center justify-center bg-white/90
+                         border border-gray-200 hover:border-blue-300
+                         hover:bg-blue-50/60 text-slate-800 px-6 py-2.5 rounded-xl
+                         text-sm font-semibold transition-colors duration-150"
             >
-
-              <FaPlay className="text-blue-600" />
-
-              Watch Video
-
-            </motion.button>
-
+              Explore Services
+            </a>
           </motion.div>
 
-          {/* STATS */}
+          {/* STATS ROW */}
           <motion.div
-
-            initial={{
-              opacity: 0,
-              y: 30,
-            }}
-
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-
-            transition={{
-              delay: 1,
-              duration: 0.8,
-            }}
-
-            className="grid grid-cols-3 gap-6 mt-16"
+            variants={itemVariants}
+            className="flex items-center gap-6 sm:gap-9"
           >
-
-            <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-6 shadow-xl border border-white text-center">
-
-              <h3 className="text-4xl font-black text-blue-600">
-
-                15K+
-
-              </h3>
-
-              <p className="text-gray-600 mt-2 font-medium">
-
-                Visa Approved
-
-              </p>
-
-            </div>
-
-            <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-6 shadow-xl border border-white text-center">
-
-              <h3 className="text-4xl font-black text-cyan-600">
-
-                25+
-
-              </h3>
-
-              <p className="text-gray-600 mt-2 font-medium">
-
-                Countries
-
-              </p>
-
-            </div>
-
-            <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-6 shadow-xl border border-white text-center">
-
-              <h3 className="text-4xl font-black text-blue-600">
-
-                10+
-
-              </h3>
-
-              <p className="text-gray-600 mt-2 font-medium">
-
-                Years Experience
-
-              </p>
-
-            </div>
-
+            {STATS.map((s, i) => (
+              <div
+                key={i}
+                className={`flex flex-col ${
+                  i > 0 ? "border-l border-gray-200/70 pl-6 sm:pl-9" : ""
+                }`}
+              >
+                <span className="text-2xl sm:text-[1.75rem] font-black text-blue-600
+                                 leading-none tabular-nums">
+                  {s.number}
+                </span>
+                <span className="text-[0.7rem] text-gray-500 font-medium mt-0.5 uppercase
+                                 tracking-wide">
+                  {s.label}
+                </span>
+              </div>
+            ))}
           </motion.div>
 
         </div>
-
-      </div>
-
+      </motion.div>
     </section>
   );
 }
 
-export default Hero;
+export default memo(Hero);
