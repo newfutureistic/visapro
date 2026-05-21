@@ -8,8 +8,8 @@ body {
   color: #0f172a;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  /* Prevent overscroll bounce causing layout jank */
-  overscroll-behavior: none;
+  /* Block horizontal overscroll only — vertical rubber-band must stay free on mobile */
+  overscroll-behavior-x: none;
   /* Sharper text rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

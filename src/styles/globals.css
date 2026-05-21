@@ -1,29 +1,41 @@
 /* ============================================================
-   GLOBAL RESET & BASE
+   GLOBAL RESET
+   IMPORTANT: Do NOT set overflow-x: hidden on html or body.
+   Doing so makes <html> the scroll container on iOS Safari /
+   Android Chrome and completely breaks touch scrolling.
+   Horizontal overflow is clipped by the #root wrapper div
+   in App.jsx instead — that is the safe approach.
    ============================================================ */
-html,
-body {
-  width: 100%;
-  overflow-x: hidden;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-* {
-  box-sizing: border-box;
+html {
+  width: 100%;
+  /* scroll-behavior set in index.css */
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  /* NO overflow here — scroll must reach the viewport freely */
 }
 
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 /* ============================================================
    GPU-ACCELERATED CSS ANIMATIONS
-   (replaces all framer-motion infinite JS-driven animations)
    ============================================================ */
 
-/* Floating card in About section */
+/* Floating card (About section) */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0px);   }
   50%       { transform: translateY(-10px); }
 }
 
@@ -32,9 +44,9 @@ img {
   will-change: transform;
 }
 
-/* Horizontal ticker in SuccessStories */
+/* Horizontal ticker (SuccessStories) */
 @keyframes ticker {
-  from { transform: translateX(0); }
+  from { transform: translateX(0);    }
   to   { transform: translateX(-50%); }
 }
 
@@ -48,16 +60,7 @@ img {
 }
 
 /* ============================================================
-   PERFORMANCE: SCROLL HINT
-   Off-screen sections skip paint until they scroll near
-   ============================================================ */
-.section-lazy {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
-}
-
-/* ============================================================
-   SWIPER OVERRIDES
+   SWIPER
    ============================================================ */
 .swiper {
   width: 100%;
@@ -91,8 +94,7 @@ img {
 }
 
 /* ============================================================
-   CARD HOVER — pure CSS, GPU transform only
-   No box-shadow transitions (those repaint; use filter instead)
+   CARD HOVER — GPU transform, no box-shadow animation
    ============================================================ */
 .card-lift {
   transition: transform 0.22s cubic-bezier(0.25, 0.4, 0.25, 1);
@@ -102,7 +104,6 @@ img {
   transform: translateY(-4px);
 }
 
-/* Subtle shadow upgrade on hover via drop-shadow filter (compositor) */
 .card-shadow-hover {
   transition: filter 0.22s ease;
   filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.08));
@@ -113,7 +114,7 @@ img {
 }
 
 /* ============================================================
-   PREMIUM GRADIENT TEXT UTILITY
+   GRADIENT TEXT
    ============================================================ */
 .gradient-text {
   background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
@@ -123,14 +124,7 @@ img {
 }
 
 /* ============================================================
-   MOBILE: body lock when nav is open
-   ============================================================ */
-body.nav-open {
-  overflow: hidden;
-}
-
-/* ============================================================
-   REDUCED MOTION — respect user preference
+   REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   .animate-float,

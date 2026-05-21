@@ -43,12 +43,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  useEffect(() => {
-    /* Use CSS class so globals.css handles overflow — avoids inline style flicker */
-    document.body.classList.toggle("nav-open", menuOpen);
-    return () => document.body.classList.remove("nav-open");
-  }, [menuOpen]);
-
   const toggle = useCallback(() => setMenuOpen((v) => !v), []);
   const close  = useCallback(() => setMenuOpen(false), []);
 
